@@ -2,6 +2,7 @@
 title: 'Reading the air: 802.11 basics'
 description: 'Channels, channel width, and why wider is not always faster on a busy floor.'
 pubDate: '2026-11-06'
+tags: ["wlan"]
 heroImage: '../../assets/blog-placeholder-2.jpg'
 ---
 

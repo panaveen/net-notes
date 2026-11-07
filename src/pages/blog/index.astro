@@ -14,22 +14,27 @@ const posts = (await getCollection('blog')).sort(
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`Posts | ${SITE_TITLE}`} description="All WLAN Notes blog posts." />
+		<BaseHead title={`Posts | ${SITE_TITLE}`} description="All Net Field Notes blog posts." />
 	</head>
 	<body>
 		<Header />
 		<main>
 			<header class="page-head">
 				<h1>Posts</h1>
-				<p>Study notes, labs, and WLAN engineering write-ups.</p>
+				<p>Notes across networking, WLAN, security, and labs.</p>
 			</header>
 			<ul class="post-list">
 				{
 					posts.map((post) => (
 						<li>
 							<a href={`/blog/${post.id}/`}>
-								<span class="date">
-									<FormattedDate date={post.data.pubDate} />
+								<span class="meta">
+									<span class="date">
+										<FormattedDate date={post.data.pubDate} />
+									</span>
+									{post.data.tags?.length > 0 && (
+										<span class="tags">{post.data.tags.join(' · ')}</span>
+									)}
 								</span>
 								<span class="title">{post.data.title}</span>
 								<span class="desc">{post.data.description}</span>
@@ -72,9 +77,15 @@ const posts = (await getCollection('blog')).sort(
 	.post-list a:hover .title {
 		color: var(--accent);
 	}
-	.date {
+	.meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.65rem;
 		font-size: 0.85rem;
 		color: var(--muted);
+	}
+	.tags {
+		text-transform: lowercase;
 	}
 	.title {
 		font-family: var(--font-display);

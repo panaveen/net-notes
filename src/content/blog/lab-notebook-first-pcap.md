@@ -2,6 +2,7 @@
 title: 'Lab notebook: your first useful WLAN pcap'
 description: 'A small capture workflow that teaches more than scrolling through Wireshark alone.'
 pubDate: '2026-11-05'
+tags: ["wlan", "labs"]
 heroImage: '../../assets/blog-placeholder-3.jpg'
 ---
 

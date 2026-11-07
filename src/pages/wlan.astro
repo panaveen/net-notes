@@ -1,0 +1,123 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('blog'))
+	.filter((post) => post.data.tags?.includes('wlan'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`WLAN | ${SITE_TITLE}`}
+			description="WLAN study notes — RF, 802.11, design, troubleshooting, and the CWNA path."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<header class="page-head">
+				<h1>WLAN</h1>
+				<p>
+					Wireless LAN notes for real networks: RF fundamentals, 802.11 behavior, labs, and a
+					structured CWNA study path toward CWNE.
+				</p>
+				<p class="cta-inline">
+					<a href="/cwna">Open CWNA path →</a>
+				</p>
+			</header>
+
+			<section>
+				<div class="section-head">
+					<h2>WLAN posts</h2>
+				</div>
+				{
+					posts.length === 0 ? (
+						<p class="empty">No WLAN-tagged posts yet.</p>
+					) : (
+						<ul class="post-list">
+							{posts.map((post) => (
+								<li>
+									<a href={`/blog/${post.id}/`}>
+										<span class="date">
+											<FormattedDate date={post.data.pubDate} />
+										</span>
+										<span class="title">{post.data.title}</span>
+										<span class="desc">{post.data.description}</span>
+									</a>
+								</li>
+							))}
+						</ul>
+					)
+				}
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		width: 820px;
+	}
+	.page-head {
+		margin-bottom: 2.25rem;
+		animation: rise-in 0.6s ease both;
+	}
+	.page-head p {
+		color: var(--muted);
+		max-width: 48ch;
+		margin: 0.75rem 0 0;
+	}
+	.cta-inline {
+		margin-top: 1rem !important;
+	}
+	.cta-inline a {
+		font-family: var(--font-display);
+		font-weight: 700;
+		text-decoration: none;
+	}
+	.section-head {
+		margin-bottom: 0.75rem;
+	}
+	.post-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0.5rem;
+	}
+	.post-list a {
+		display: grid;
+		gap: 0.2rem;
+		padding: 1.1rem 0;
+		border-bottom: 1px solid var(--line);
+		text-decoration: none;
+		color: inherit;
+	}
+	.post-list a:hover .title {
+		color: var(--accent);
+	}
+	.date {
+		font-size: 0.85rem;
+		color: var(--muted);
+	}
+	.title {
+		font-family: var(--font-display);
+		font-size: 1.3rem;
+		font-weight: 700;
+		color: var(--ink);
+	}
+	.desc {
+		color: var(--muted);
+	}
+	.empty {
+		color: var(--muted);
+	}
+</style>

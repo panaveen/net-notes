@@ -4,11 +4,11 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { SITE_DESCRIPTION, SITE_TITLE, TOPICS } from '../consts';
 
 const posts = (await getCollection('blog'))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 3);
+	.slice(0, 4);
 ---
 
 <!doctype html>
@@ -21,19 +21,22 @@ const posts = (await getCollection('blog'))
 		<section class="hero">
 			<div class="hero-copy">
 				<p class="brand-mark">{SITE_TITLE}</p>
-				<h1>Learn Wi‑Fi in public on the road to CWNE.</h1>
+				<h1>Enterprise networking notes from the field.</h1>
 				<p class="lede">
-					Field notes, lab write-ups, and CWNA concepts explained the way a network engineer
-					actually uses them.
+					Practical write-ups across WLAN, routing, security, and labs — written the way tickets
+					actually get solved.
 				</p>
 				<div class="cta-row">
 					<a class="cta primary" href="/blog">Read the posts</a>
-					<a class="cta secondary" href="/cwna">Browse CWNA path</a>
+					<a class="cta secondary" href="/wlan">Explore WLAN</a>
 				</div>
 			</div>
 			<div class="hero-visual" aria-hidden="true">
 				<svg viewBox="0 0 640 420" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<rect width="640" height="420" fill="url(#sky)"></rect>
+					<path d="M80 320 H560" stroke="#7eb89f" stroke-width="1.2" opacity="0.45"></path>
+					<path d="M120 280 H520" stroke="#7eb89f" stroke-width="1.2" opacity="0.35"></path>
+					<path d="M160 240 H480" stroke="#7eb89f" stroke-width="1.2" opacity="0.25"></path>
 					<path
 						class="wave w1"
 						d="M0 250 C80 210, 140 290, 220 250 S360 180, 440 230 S560 300, 640 240"
@@ -45,16 +48,12 @@ const posts = (await getCollection('blog'))
 						stroke="#0f7a6c"
 						stroke-width="2"
 						opacity="0.7"></path>
-					<path
-						class="wave w3"
-						d="M0 310 C90 285, 170 345, 260 305 S400 250, 490 300 S580 340, 640 305"
-						stroke="#7eb89f"
-						stroke-width="1.5"
-						opacity="0.55"></path>
-					<circle cx="320" cy="160" r="10" fill="#c9f2a8"></circle>
-					<circle class="ring r1" cx="320" cy="160" r="46" stroke="#19a392" stroke-width="1.5"></circle>
-					<circle class="ring r2" cx="320" cy="160" r="86" stroke="#0f7a6c" stroke-width="1.2"></circle>
-					<circle class="ring r3" cx="320" cy="160" r="130" stroke="#7eb89f" stroke-width="1"></circle>
+					<circle cx="200" cy="180" r="7" fill="#c9f2a8"></circle>
+					<circle cx="320" cy="140" r="9" fill="#19a392"></circle>
+					<circle cx="440" cy="190" r="7" fill="#c9f2a8"></circle>
+					<path d="M200 180 L320 140 L440 190" stroke="#c9f2a8" stroke-width="1.5" opacity="0.7"></path>
+					<circle class="ring r1" cx="320" cy="140" r="42" stroke="#19a392" stroke-width="1.4"></circle>
+					<circle class="ring r2" cx="320" cy="140" r="78" stroke="#0f7a6c" stroke-width="1.1"></circle>
 					<defs>
 						<linearGradient id="sky" x1="0" y1="0" x2="640" y2="420" gradientUnits="userSpaceOnUse">
 							<stop stop-color="#12313a"></stop>
@@ -67,18 +66,42 @@ const posts = (await getCollection('blog'))
 		</section>
 
 		<main>
+			<section class="topics">
+				<div class="section-head">
+					<h2>Topics</h2>
+					<p>One notebook for the stack — start where your work is today.</p>
+				</div>
+				<ul class="topic-list">
+					{
+						TOPICS.map((topic) => (
+							<li>
+								<a href={topic.href}>
+									<span class="topic-title">{topic.title}</span>
+									<span class="topic-blurb">{topic.blurb}</span>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+
 			<section class="latest">
 				<div class="section-head">
 					<h2>Latest notes</h2>
-					<p>Start with RF fundamentals, then move into 802.11 behavior and design.</p>
+					<p>Newest posts across all topics.</p>
 				</div>
 				<ul class="post-list">
 					{
 						posts.map((post) => (
 							<li>
 								<a href={`/blog/${post.id}/`}>
-									<span class="date">
-										<FormattedDate date={post.data.pubDate} />
+									<span class="meta">
+										<span class="date">
+											<FormattedDate date={post.data.pubDate} />
+										</span>
+										{post.data.tags?.length > 0 && (
+											<span class="tags">{post.data.tags.join(' · ')}</span>
+										)}
 									</span>
 									<span class="title">{post.data.title}</span>
 									<span class="desc">{post.data.description}</span>
@@ -134,7 +157,7 @@ const posts = (await getCollection('blog'))
 		margin: 0 0 1.75rem;
 		color: var(--muted);
 		font-size: 1.05rem;
-		max-width: 34ch;
+		max-width: 36ch;
 		animation: rise-in 0.8s ease 0.18s both;
 	}
 	.cta-row {
@@ -152,7 +175,9 @@ const posts = (await getCollection('blog'))
 		font-weight: 700;
 		font-size: 0.95rem;
 		border-radius: 6px;
-		transition: transform 0.2s ease, background 0.2s ease;
+		transition:
+			transform 0.2s ease,
+			background 0.2s ease;
 	}
 	.cta:hover {
 		transform: translateY(-1px);
@@ -182,7 +207,6 @@ const posts = (await getCollection('blog'))
 		width: 100%;
 		height: 100%;
 		display: block;
-		object-fit: cover;
 	}
 	.wave {
 		stroke-dasharray: 8 10;
@@ -190,9 +214,6 @@ const posts = (await getCollection('blog'))
 	}
 	.w2 {
 		animation-delay: 0.4s;
-	}
-	.w3 {
-		animation-delay: 0.8s;
 	}
 	.ring {
 		fill: none;
@@ -202,19 +223,49 @@ const posts = (await getCollection('blog'))
 	.r2 {
 		animation-delay: 0.5s;
 	}
-	.r3 {
-		animation-delay: 1s;
-	}
 	main {
 		width: 960px;
 	}
 	.section-head {
-		margin-bottom: 1.5rem;
+		margin-bottom: 1.25rem;
 	}
 	.section-head p {
 		margin: 0.4rem 0 0;
 		color: var(--muted);
-		max-width: 42ch;
+		max-width: 46ch;
+	}
+	.topics {
+		margin-bottom: 3rem;
+	}
+	.topic-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0;
+	}
+	.topic-list a {
+		display: grid;
+		gap: 0.3rem;
+		padding: 1.15rem 0;
+		border-bottom: 1px solid var(--line);
+		text-decoration: none;
+		color: inherit;
+		padding-right: 1.5rem;
+	}
+	.topic-list a:hover .topic-title {
+		color: var(--accent);
+	}
+	.topic-title {
+		font-family: var(--font-display);
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: var(--ink);
+	}
+	.topic-blurb {
+		color: var(--muted);
+		font-size: 0.98rem;
 	}
 	.post-list {
 		list-style: none;
@@ -230,14 +281,20 @@ const posts = (await getCollection('blog'))
 		border-bottom: 1px solid var(--line);
 		text-decoration: none;
 		color: inherit;
-		transition: padding-left 0.2s ease;
 	}
-	.post-list a:hover {
-		padding-left: 0.35rem;
+	.post-list a:hover .title {
+		color: var(--accent);
 	}
-	.date {
+	.meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.65rem;
 		font-size: 0.85rem;
 		color: var(--muted);
+	}
+	.tags {
+		text-transform: lowercase;
+		letter-spacing: 0.02em;
 	}
 	.title {
 		font-family: var(--font-display);
@@ -267,6 +324,9 @@ const posts = (await getCollection('blog'))
 		}
 		.hero-copy h1 {
 			max-width: none;
+		}
+		.topic-list {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>

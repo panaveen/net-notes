@@ -2,6 +2,7 @@
 title: 'RF fundamentals for CWNA'
 description: 'dBm, SNR, FSPL, and the few RF ideas you will reuse on every survey and ticket.'
 pubDate: '2026-11-07'
+tags: ["wlan"]
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
