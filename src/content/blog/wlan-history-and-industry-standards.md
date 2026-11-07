@@ -1,5 +1,5 @@
 ---
-title: 'Wlan history and Industry standards'
+title: 'History and Standards'
 description: 'History of WLAN and Industry Standards.'
 pubDate: '2026-11-07'
 heroImage: '../../assets/blog-placeholder-3.jpg'
