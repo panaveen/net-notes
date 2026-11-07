@@ -1,0 +1,23 @@
+---
+import { SITE_AUTHOR, SITE_TITLE } from '../consts';
+
+const today = new Date();
+---
+
+<footer>
+	<p>
+		&copy; {today.getFullYear()} {SITE_AUTHOR} · {SITE_TITLE}. Study notes on the CWNA → CWNE path.
+	</p>
+</footer>
+<style>
+	footer {
+		padding: 2.5em 1em 4em;
+		color: var(--muted);
+		text-align: center;
+		font-size: 0.95rem;
+		border-top: 1px solid var(--line);
+	}
+	p {
+		margin: 0;
+	}
+</style>

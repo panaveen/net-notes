@@ -1,0 +1,272 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<section class="hero">
+			<div class="hero-copy">
+				<p class="brand-mark">{SITE_TITLE}</p>
+				<h1>Learn Wi‑Fi in public on the road to CWNE.</h1>
+				<p class="lede">
+					Field notes, lab write-ups, and CWNA concepts explained the way a network engineer
+					actually uses them.
+				</p>
+				<div class="cta-row">
+					<a class="cta primary" href="/blog">Read the posts</a>
+					<a class="cta secondary" href="/cwna">Browse CWNA path</a>
+				</div>
+			</div>
+			<div class="hero-visual" aria-hidden="true">
+				<svg viewBox="0 0 640 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect width="640" height="420" fill="url(#sky)"></rect>
+					<path
+						class="wave w1"
+						d="M0 250 C80 210, 140 290, 220 250 S360 180, 440 230 S560 300, 640 240"
+						stroke="#19a392"
+						stroke-width="2.5"></path>
+					<path
+						class="wave w2"
+						d="M0 280 C100 240, 160 320, 250 275 S390 210, 470 265 S570 320, 640 270"
+						stroke="#0f7a6c"
+						stroke-width="2"
+						opacity="0.7"></path>
+					<path
+						class="wave w3"
+						d="M0 310 C90 285, 170 345, 260 305 S400 250, 490 300 S580 340, 640 305"
+						stroke="#7eb89f"
+						stroke-width="1.5"
+						opacity="0.55"></path>
+					<circle cx="320" cy="160" r="10" fill="#c9f2a8"></circle>
+					<circle class="ring r1" cx="320" cy="160" r="46" stroke="#19a392" stroke-width="1.5"></circle>
+					<circle class="ring r2" cx="320" cy="160" r="86" stroke="#0f7a6c" stroke-width="1.2"></circle>
+					<circle class="ring r3" cx="320" cy="160" r="130" stroke="#7eb89f" stroke-width="1"></circle>
+					<defs>
+						<linearGradient id="sky" x1="0" y1="0" x2="640" y2="420" gradientUnits="userSpaceOnUse">
+							<stop stop-color="#12313a"></stop>
+							<stop offset="0.55" stop-color="#0f4d4a"></stop>
+							<stop offset="1" stop-color="#1b6b5c"></stop>
+						</linearGradient>
+					</defs>
+				</svg>
+			</div>
+		</section>
+
+		<main>
+			<section class="latest">
+				<div class="section-head">
+					<h2>Latest notes</h2>
+					<p>Start with RF fundamentals, then move into 802.11 behavior and design.</p>
+				</div>
+				<ul class="post-list">
+					{
+						posts.map((post) => (
+							<li>
+								<a href={`/blog/${post.id}/`}>
+									<span class="date">
+										<FormattedDate date={post.data.pubDate} />
+									</span>
+									<span class="title">{post.data.title}</span>
+									<span class="desc">{post.data.description}</span>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+				<p class="more">
+					<a href="/blog">All posts →</a>
+				</p>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.hero {
+		width: 100%;
+		min-height: calc(100vh - 4rem);
+		display: grid;
+		grid-template-columns: 1.05fr 0.95fr;
+		gap: 0;
+		align-items: stretch;
+		animation: rise-in 0.7s ease both;
+	}
+	.hero-copy {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: clamp(2rem, 6vw, 5rem) clamp(1.25rem, 5vw, 4rem);
+		max-width: 40rem;
+	}
+	.brand-mark {
+		margin: 0 0 1rem;
+		font-family: var(--font-display);
+		font-size: clamp(2rem, 4vw, 2.8rem);
+		font-weight: 800;
+		letter-spacing: -0.04em;
+		color: var(--ink);
+		animation: rise-in 0.8s ease 0.05s both;
+	}
+	.hero-copy h1 {
+		margin: 0 0 1rem;
+		font-size: clamp(1.55rem, 3.2vw, 2.15rem);
+		font-weight: 600;
+		color: var(--ink-soft);
+		max-width: 18ch;
+		animation: rise-in 0.8s ease 0.12s both;
+	}
+	.lede {
+		margin: 0 0 1.75rem;
+		color: var(--muted);
+		font-size: 1.05rem;
+		max-width: 34ch;
+		animation: rise-in 0.8s ease 0.18s both;
+	}
+	.cta-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		animation: rise-in 0.8s ease 0.24s both;
+	}
+	.cta {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.7rem 1.15rem;
+		text-decoration: none;
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.95rem;
+		border-radius: 6px;
+		transition: transform 0.2s ease, background 0.2s ease;
+	}
+	.cta:hover {
+		transform: translateY(-1px);
+	}
+	.cta.primary {
+		background: var(--ink);
+		color: #f3f7f4;
+	}
+	.cta.primary:hover {
+		background: var(--accent);
+		color: #fff;
+	}
+	.cta.secondary {
+		background: transparent;
+		color: var(--ink);
+		border: 1px solid var(--line);
+	}
+	.cta.secondary:hover {
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+	.hero-visual {
+		min-height: 320px;
+		overflow: hidden;
+	}
+	.hero-visual svg {
+		width: 100%;
+		height: 100%;
+		display: block;
+		object-fit: cover;
+	}
+	.wave {
+		stroke-dasharray: 8 10;
+		animation: pulse-wave 4.5s ease-in-out infinite;
+	}
+	.w2 {
+		animation-delay: 0.4s;
+	}
+	.w3 {
+		animation-delay: 0.8s;
+	}
+	.ring {
+		fill: none;
+		opacity: 0.55;
+		animation: pulse-wave 5s ease-in-out infinite;
+	}
+	.r2 {
+		animation-delay: 0.5s;
+	}
+	.r3 {
+		animation-delay: 1s;
+	}
+	main {
+		width: 960px;
+	}
+	.section-head {
+		margin-bottom: 1.5rem;
+	}
+	.section-head p {
+		margin: 0.4rem 0 0;
+		color: var(--muted);
+		max-width: 42ch;
+	}
+	.post-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0.85rem;
+	}
+	.post-list a {
+		display: grid;
+		gap: 0.25rem;
+		padding: 1.1rem 0;
+		border-bottom: 1px solid var(--line);
+		text-decoration: none;
+		color: inherit;
+		transition: padding-left 0.2s ease;
+	}
+	.post-list a:hover {
+		padding-left: 0.35rem;
+	}
+	.date {
+		font-size: 0.85rem;
+		color: var(--muted);
+	}
+	.title {
+		font-family: var(--font-display);
+		font-size: 1.35rem;
+		font-weight: 700;
+		color: var(--ink);
+	}
+	.desc {
+		color: var(--muted);
+		font-size: 0.98rem;
+	}
+	.more {
+		margin-top: 1.5rem;
+	}
+	@media (max-width: 900px) {
+		.hero {
+			grid-template-columns: 1fr;
+			min-height: auto;
+		}
+		.hero-visual {
+			min-height: 240px;
+			order: -1;
+		}
+		.hero-copy {
+			max-width: none;
+			padding-top: 1.5rem;
+		}
+		.hero-copy h1 {
+			max-width: none;
+		}
+	}
+</style>

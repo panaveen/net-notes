@@ -1,0 +1,74 @@
+---
+import { SITE_TITLE } from '../consts';
+import HeaderLink from './HeaderLink.astro';
+---
+
+<header>
+	<nav>
+		<a class="brand" href="/">{SITE_TITLE}</a>
+		<div class="internal-links">
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/blog">Posts</HeaderLink>
+			<HeaderLink href="/cwna">CWNA Path</HeaderLink>
+			<HeaderLink href="/about">About</HeaderLink>
+		</div>
+	</nav>
+</header>
+<style>
+	header {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		backdrop-filter: blur(10px);
+		background: rgba(243, 247, 244, 0.82);
+		border-bottom: 1px solid var(--line);
+	}
+	nav {
+		width: 960px;
+		max-width: calc(100% - 2em);
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.85rem 0;
+	}
+	.brand {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 1.15rem;
+		letter-spacing: -0.03em;
+		color: var(--ink);
+		text-decoration: none;
+	}
+	.brand:hover {
+		color: var(--accent);
+	}
+	.internal-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.15rem;
+		justify-content: flex-end;
+	}
+	.internal-links :global(a) {
+		padding: 0.35rem 0.65rem;
+		color: var(--ink-soft);
+		text-decoration: none;
+		font-size: 0.95rem;
+		border-bottom: 2px solid transparent;
+	}
+	.internal-links :global(a.active),
+	.internal-links :global(a:hover) {
+		color: var(--accent);
+		border-bottom-color: var(--accent);
+	}
+	@media (max-width: 640px) {
+		nav {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+		.internal-links {
+			justify-content: flex-start;
+		}
+	}
+</style>

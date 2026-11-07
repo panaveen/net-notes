@@ -1,0 +1,140 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+
+const domains = [
+	{
+		code: 'RF',
+		title: 'Radio Frequency fundamentals',
+		blurb: 'Wavelength, amplitude, SNR, dBm, free space path loss, and antenna basics.',
+		href: '/blog/rf-fundamentals-for-cwna/',
+	},
+	{
+		code: 'PHY',
+		title: '802.11 physical layer',
+		blurb: 'Channels, channel width, MCS, OFDM, and what actually fills the airtime.',
+		href: '/blog/reading-the-air-80211-basics/',
+	},
+	{
+		code: 'MAC',
+		title: 'Medium access & roaming',
+		blurb: 'CSMA/CA, contention, association, and what “sticky clients” really mean.',
+		href: '/blog/',
+	},
+	{
+		code: 'ARCH',
+		title: 'WLAN architecture',
+		blurb: 'Controller, cloud, and campus patterns — where config lives and how APs join.',
+		href: '/blog/',
+	},
+	{
+		code: 'SEC',
+		title: 'WLAN security',
+		blurb: 'WPA2/WPA3, 802.1X, PSK pitfalls, and guest isolation concepts.',
+		href: '/blog/',
+	},
+	{
+		code: 'TSHOOT',
+		title: 'Troubleshooting',
+		blurb: 'Spectrum, packet captures, and a method for “Wi‑Fi is slow” tickets.',
+		href: '/blog/lab-notebook-first-pcap/',
+	},
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`CWNA Path | ${SITE_TITLE}`}
+			description="CWNA study path mapped to WLAN Notes posts — RF through troubleshooting."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<header class="page-head">
+				<h1>CWNA path</h1>
+				<p>
+					A living map from exam domains to posts on this site. Use it as a checklist while you
+					study — then grow it toward CWAP, CWDP, and CWNE.
+				</p>
+			</header>
+			<ol class="domains">
+				{
+					domains.map((d) => (
+						<li>
+							<a href={d.href}>
+								<span class="code">{d.code}</span>
+								<span class="body">
+									<span class="title">{d.title}</span>
+									<span class="blurb">{d.blurb}</span>
+								</span>
+							</a>
+						</li>
+					))
+				}
+			</ol>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		width: 820px;
+	}
+	.page-head {
+		margin-bottom: 2rem;
+		animation: rise-in 0.6s ease both;
+	}
+	.page-head p {
+		color: var(--muted);
+		max-width: 48ch;
+		margin: 0.75rem 0 0;
+	}
+	.domains {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0.75rem;
+	}
+	.domains a {
+		display: grid;
+		grid-template-columns: 4.5rem 1fr;
+		gap: 1rem;
+		align-items: start;
+		padding: 1.1rem 0;
+		border-bottom: 1px solid var(--line);
+		text-decoration: none;
+		color: inherit;
+	}
+	.domains a:hover .title {
+		color: var(--accent);
+	}
+	.code {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.85rem;
+		letter-spacing: 0.06em;
+		color: var(--accent);
+		padding-top: 0.25rem;
+	}
+	.body {
+		display: grid;
+		gap: 0.25rem;
+	}
+	.title {
+		font-family: var(--font-display);
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: var(--ink);
+	}
+	.blurb {
+		color: var(--muted);
+		font-size: 0.98rem;
+	}
+</style>

@@ -1,0 +1,51 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_AUTHOR, SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`About | ${SITE_TITLE}`}
+			description="About WLAN Notes — a CWNA to CWNE study blog."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<header class="page-head">
+				<h1>About</h1>
+				<p>
+					{SITE_TITLE} is {SITE_AUTHOR}'s public study log for wireless LAN engineering — starting
+					with CWNA and aiming long-term at CWNE.
+				</p>
+			</header>
+			<div class="prose">
+				<p>
+					Expect short, practical posts: RF math you can reuse on a survey, 802.11 behaviors that
+					show up in tickets, lab notes from packet captures, and architecture patterns from real
+					campus and DC Wi‑Fi.
+				</p>
+				<p>
+					This site is built with Astro and hosted on Cloudflare Pages. Posts live as Markdown in
+					the repo — easy to write, version, and improve over time.
+				</p>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.page-head {
+		margin-bottom: 1.5rem;
+	}
+	.page-head p {
+		color: var(--muted);
+		margin: 0.75rem 0 0;
+		max-width: 48ch;
+	}
+</style>
