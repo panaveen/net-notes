@@ -8,7 +8,7 @@ import remarkGfm from 'remark-gfm';
 // https://astro.build/config
 // Update `site` after Cloudflare gives you a pages.dev URL (or custom domain).
 export default defineConfig({
-	site: 'https://wlan-notes.pages.dev',
+	site: 'https://net-notes.pages.dev',
 	integrations: [mdx(), sitemap()],
 	markdown: {
 		remarkPlugins: [remarkGfm],
