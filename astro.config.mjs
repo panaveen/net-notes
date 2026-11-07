@@ -3,12 +3,16 @@
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import remarkGfm from 'remark-gfm';
 
 // https://astro.build/config
 // Update `site` after Cloudflare gives you a pages.dev URL (or custom domain).
 export default defineConfig({
 	site: 'https://wlan-notes.pages.dev',
 	integrations: [mdx(), sitemap()],
+	markdown: {
+		remarkPlugins: [remarkGfm],
+	},
 	fonts: [
 		{
 			provider: fontProviders.local(),
