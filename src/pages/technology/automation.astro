@@ -1,0 +1,23 @@
+---
+import HubPage from '../../components/HubPage.astro';
+import TaggedPosts from '../../components/TaggedPosts.astro';
+---
+
+<HubPage
+	title="Automation"
+	description="Automation notes — scripts, APIs, and ops workflows."
+	intro="Scripts, APIs, CI hooks, and ops workflows that remove repetitive network work."
+>
+	<h2>Posts</h2>
+	<TaggedPosts
+		tags={['automation']}
+		emptyText="No automation posts yet. Tag a post with automation to list it here."
+	/>
+</HubPage>
+
+<style>
+	h2 {
+		margin: 0 0 0.75rem;
+		font-size: 1.35rem;
+	}
+</style>

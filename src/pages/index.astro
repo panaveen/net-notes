@@ -4,7 +4,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE, TOPICS } from '../consts';
+import { CERTIFICATIONS, SITE_DESCRIPTION, SITE_TITLE, TECHNOLOGY } from '../consts';
 
 const posts = (await getCollection('blog'))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -23,12 +23,12 @@ const posts = (await getCollection('blog'))
 				<p class="brand-mark">{SITE_TITLE}</p>
 				<h1>Enterprise networking notes from the field.</h1>
 				<p class="lede">
-					Practical write-ups across WLAN, routing, security, and labs — written the way tickets
+					Practical write-ups across technology and certifications — written the way tickets
 					actually get solved.
 				</p>
 				<div class="cta-row">
 					<a class="cta primary" href="/blog">Read the posts</a>
-					<a class="cta secondary" href="/wlan">Explore WLAN</a>
+					<a class="cta secondary" href="/technology">Browse technology</a>
 				</div>
 			</div>
 			<div class="hero-visual" aria-hidden="true">
@@ -68,16 +68,35 @@ const posts = (await getCollection('blog'))
 		<main>
 			<section class="topics">
 				<div class="section-head">
-					<h2>Topics</h2>
-					<p>One notebook for the stack — start where your work is today.</p>
+					<h2>Technology</h2>
+					<p>Network, security, and automation notes from day-to-day engineering.</p>
 				</div>
 				<ul class="topic-list">
 					{
-						TOPICS.map((topic) => (
+						TECHNOLOGY.map((topic) => (
 							<li>
 								<a href={topic.href}>
 									<span class="topic-title">{topic.title}</span>
 									<span class="topic-blurb">{topic.blurb}</span>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+
+			<section class="topics">
+				<div class="section-head">
+					<h2>Certification</h2>
+					<p>Study paths for CWNP, Cisco, and Juniper.</p>
+				</div>
+				<ul class="topic-list">
+					{
+						CERTIFICATIONS.map((item) => (
+							<li>
+								<a href={item.href}>
+									<span class="topic-title">{item.title}</span>
+									<span class="topic-blurb">{item.blurb}</span>
 								</a>
 							</li>
 						))

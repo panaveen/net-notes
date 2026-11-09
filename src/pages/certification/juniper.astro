@@ -1,0 +1,20 @@
+---
+import HubPage from '../../components/HubPage.astro';
+import TaggedPosts from '../../components/TaggedPosts.astro';
+---
+
+<HubPage
+	title="Juniper"
+	description="Juniper and Mist certification notes."
+	intro="Junos, Mist, SRX/EX, and Juniper cert study notes. Tag posts with juniper (or mist) to list them here."
+>
+	<h2>Posts</h2>
+	<TaggedPosts tags={['juniper', 'mist']} emptyText="No Juniper/Mist-tagged posts yet." />
+</HubPage>
+
+<style>
+	h2 {
+		margin: 0 0 0.75rem;
+		font-size: 1.35rem;
+	}
+</style>

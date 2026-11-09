@@ -1,0 +1,97 @@
+---
+import BaseHead from './BaseHead.astro';
+import Footer from './Footer.astro';
+import Header from './Header.astro';
+import { SITE_TITLE } from '../consts';
+
+interface LinkItem {
+	title: string;
+	blurb: string;
+	href: string;
+}
+
+interface Props {
+	title: string;
+	description: string;
+	intro: string;
+	links?: LinkItem[];
+	children?: any;
+}
+
+const { title, description, intro, links = [] } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`${title} | ${SITE_TITLE}`} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<header class="page-head">
+				<h1>{title}</h1>
+				<p>{intro}</p>
+			</header>
+			{
+				links.length > 0 && (
+					<ul class="link-list">
+						{links.map((item) => (
+							<li>
+								<a href={item.href}>
+									<span class="title">{item.title}</span>
+									<span class="blurb">{item.blurb}</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				)
+			}
+			<slot />
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		width: 820px;
+	}
+	.page-head {
+		margin-bottom: 1.75rem;
+		animation: rise-in 0.6s ease both;
+	}
+	.page-head p {
+		margin: 0.75rem 0 0;
+		color: var(--muted);
+		max-width: 52ch;
+	}
+	.link-list {
+		list-style: none;
+		margin: 0 0 2rem;
+		padding: 0;
+		display: grid;
+		gap: 0.35rem;
+	}
+	.link-list a {
+		display: grid;
+		gap: 0.2rem;
+		padding: 1rem 0;
+		border-bottom: 1px solid var(--line);
+		text-decoration: none;
+		color: inherit;
+	}
+	.link-list a:hover .title {
+		color: var(--accent);
+	}
+	.title {
+		font-family: var(--font-display);
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: var(--ink);
+	}
+	.blurb {
+		color: var(--muted);
+		font-size: 0.98rem;
+	}
+</style>

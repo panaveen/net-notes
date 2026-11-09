@@ -1,0 +1,23 @@
+---
+import HubPage from '../../components/HubPage.astro';
+import TaggedPosts from '../../components/TaggedPosts.astro';
+---
+
+<HubPage
+	title="Security"
+	description="Security notes — firewalls, Zero Trust, Prisma, and hardening."
+	intro="Firewalls, Zero Trust, Prisma Access, and practical hardening write-ups."
+>
+	<h2>Posts</h2>
+	<TaggedPosts
+		tags={['security']}
+		emptyText="No security posts yet. Tag a post with security to list it here."
+	/>
+</HubPage>
+
+<style>
+	h2 {
+		margin: 0 0 0.75rem;
+		font-size: 1.35rem;
+	}
+</style>

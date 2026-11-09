@@ -1,0 +1,20 @@
+---
+import HubPage from '../../components/HubPage.astro';
+import TaggedPosts from '../../components/TaggedPosts.astro';
+---
+
+<HubPage
+	title="Cisco"
+	description="Cisco certification and product notes."
+	intro="Placeholder hub for Cisco cert and product notes (CCNA/CCNP-style study, wireless, security). Add posts tagged cisco to fill this page."
+>
+	<h2>Posts</h2>
+	<TaggedPosts tags={['cisco']} emptyText="No Cisco-tagged posts yet." />
+</HubPage>
+
+<style>
+	h2 {
+		margin: 0 0 0.75rem;
+		font-size: 1.35rem;
+	}
+</style>

@@ -1,20 +1,59 @@
 ---
-import { SITE_TITLE } from '../consts';
-import HeaderLink from './HeaderLink.astro';
+import { CERTIFICATIONS, SITE_TITLE, TECHNOLOGY } from '../consts';
+
+const path = Astro.url.pathname;
+const techActive = path.startsWith('/technology');
+const certActive = path.startsWith('/certification');
+const postsActive = path.startsWith('/blog');
+const aboutActive = path.startsWith('/about');
+const homeActive = path === '/' || path === '';
 ---
 
 <header>
 	<nav>
 		<a class="brand" href="/">{SITE_TITLE}</a>
 		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/wlan">WLAN</HeaderLink>
-			<HeaderLink href="/blog">Posts</HeaderLink>
-			<HeaderLink href="/cwna">CWNA</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
+			<a class:list={[{ active: homeActive }]} href="/">Home</a>
+
+			<div class:list={['menu', { active: techActive }]}>
+				<a class="menu-trigger" href="/technology">Technology</a>
+				<div class="dropdown" role="menu">
+					<a href="/technology">Overview</a>
+					{TECHNOLOGY.map((item) => <a href={item.href}>{item.title}</a>)}
+				</div>
+			</div>
+
+			<div class:list={['menu', { active: certActive }]}>
+				<a class="menu-trigger" href="/certification">Certification</a>
+				<div class="dropdown" role="menu">
+					<a href="/certification">Overview</a>
+					{
+						CERTIFICATIONS.map((item) =>
+							item.children.length > 0 ? (
+								<div class="submenu">
+									<a class="submenu-trigger" href={item.href}>
+										{item.title}
+									</a>
+									<div class="flyout">
+										{item.children.map((child) => (
+											<a href={child.href}>{child.title}</a>
+										))}
+									</div>
+								</div>
+							) : (
+								<a href={item.href}>{item.title}</a>
+							),
+						)
+					}
+				</div>
+			</div>
+
+			<a class:list={[{ active: postsActive }]} href="/blog">Posts</a>
+			<a class:list={[{ active: aboutActive }]} href="/about">About</a>
 		</div>
 	</nav>
 </header>
+
 <style>
 	header {
 		position: sticky;
@@ -48,28 +87,156 @@ import HeaderLink from './HeaderLink.astro';
 	.internal-links {
 		display: flex;
 		flex-wrap: wrap;
+		align-items: center;
 		gap: 0.15rem;
 		justify-content: flex-end;
 	}
-	.internal-links :global(a) {
+	.internal-links > a,
+	.menu-trigger {
 		padding: 0.35rem 0.65rem;
 		color: var(--ink-soft);
 		text-decoration: none;
 		font-size: 0.95rem;
 		border-bottom: 2px solid transparent;
 	}
-	.internal-links :global(a.active),
-	.internal-links :global(a:hover) {
+	.menu-trigger::after {
+		content: ' ▾';
+		font-size: 0.75em;
+		opacity: 0.7;
+	}
+	.internal-links > a.active,
+	.internal-links > a:hover,
+	.menu.active > .menu-trigger,
+	.menu:hover > .menu-trigger,
+	.menu:focus-within > .menu-trigger {
 		color: var(--accent);
 		border-bottom-color: var(--accent);
 	}
-	@media (max-width: 640px) {
+	.menu {
+		position: relative;
+	}
+	.dropdown {
+		position: absolute;
+		top: calc(100% - 2px);
+		left: 0;
+		min-width: 11.5rem;
+		display: grid;
+		padding: 0.45rem;
+		background: #f7fbf8;
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		box-shadow: var(--shadow-soft);
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(6px);
+		transition:
+			opacity 0.15s ease,
+			transform 0.15s ease,
+			visibility 0.15s ease;
+		pointer-events: none;
+	}
+	.menu::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 100%;
+		height: 0.5rem;
+	}
+	.menu:hover > .dropdown,
+	.menu:focus-within > .dropdown {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+		pointer-events: auto;
+	}
+	.dropdown a,
+	.submenu-trigger {
+		padding: 0.5rem 0.7rem;
+		color: var(--ink-soft);
+		text-decoration: none;
+		font-size: 0.92rem;
+		border-radius: 4px;
+		display: block;
+	}
+	.dropdown a:hover,
+	.dropdown a:focus-visible,
+	.submenu:hover > .submenu-trigger,
+	.submenu:focus-within > .submenu-trigger {
+		background: var(--paper-deep);
+		color: var(--accent);
+		outline: none;
+	}
+	.submenu {
+		position: relative;
+	}
+	.submenu-trigger::after {
+		content: ' ▸';
+		float: right;
+		opacity: 0.7;
+	}
+	.flyout {
+		position: absolute;
+		top: 0;
+		left: calc(100% - 4px);
+		min-width: 9.5rem;
+		display: grid;
+		padding: 0.45rem;
+		background: #f7fbf8;
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		box-shadow: var(--shadow-soft);
+		opacity: 0;
+		visibility: hidden;
+		transform: translateX(4px);
+		transition:
+			opacity 0.15s ease,
+			transform 0.15s ease,
+			visibility 0.15s ease;
+		pointer-events: none;
+	}
+	.submenu:hover > .flyout,
+	.submenu:focus-within > .flyout {
+		opacity: 1;
+		visibility: visible;
+		transform: translateX(0);
+		pointer-events: auto;
+	}
+	@media (max-width: 720px) {
 		nav {
 			flex-direction: column;
 			align-items: flex-start;
 		}
 		.internal-links {
 			justify-content: flex-start;
+			width: 100%;
+		}
+		.dropdown {
+			position: static;
+			opacity: 1;
+			visibility: visible;
+			transform: none;
+			pointer-events: auto;
+			box-shadow: none;
+			margin: 0.15rem 0 0.35rem 0.35rem;
+			border: none;
+			padding: 0;
+			background: transparent;
+		}
+		.flyout {
+			position: static;
+			opacity: 1;
+			visibility: visible;
+			transform: none;
+			pointer-events: auto;
+			box-shadow: none;
+			border: none;
+			background: transparent;
+			padding: 0 0 0 0.85rem;
+			margin-top: 0.15rem;
+		}
+		.submenu-trigger::after {
+			content: '';
 		}
 	}
 </style>

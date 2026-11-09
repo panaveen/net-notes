@@ -1,0 +1,27 @@
+---
+import HubPage from '../../components/HubPage.astro';
+import TaggedPosts from '../../components/TaggedPosts.astro';
+---
+
+<HubPage
+	title="CWNP"
+	description="CWNP study notes — CWNA path toward CWNE."
+	intro="Wireless LAN certifications from CWNP. Use the CWNA path as a checklist, then grow into CWAP / CWDP / CWSP / CWNE."
+	links={[
+		{
+			title: 'CWNA path',
+			blurb: 'Exam-domain map linked to posts on this site.',
+			href: '/certification/cwnp/cwna',
+		},
+	]}
+>
+	<h2>WLAN study posts</h2>
+	<TaggedPosts tags={['wlan']} />
+</HubPage>
+
+<style>
+	h2 {
+		margin: 1.5rem 0 0.75rem;
+		font-size: 1.35rem;
+	}
+</style>

@@ -1,0 +1,24 @@
+---
+import HubPage from '../../components/HubPage.astro';
+import { CERTIFICATIONS } from '../../consts';
+
+const links = CERTIFICATIONS.flatMap((item) => [
+	{
+		title: item.title,
+		blurb: item.blurb,
+		href: item.href,
+	},
+	...item.children.map((child) => ({
+		title: `${item.title} → ${child.title}`,
+		blurb: child.blurb,
+		href: child.href,
+	})),
+]);
+---
+
+<HubPage
+	title="Certification"
+	description="Certification study paths — CWNP, Cisco, and Juniper."
+	intro="Study maps and notes for the cert tracks you’re working through. CWNP includes CWNA as a sub-page; Cisco and Juniper grow as you add posts."
+	links={links}
+/>

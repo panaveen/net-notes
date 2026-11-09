@@ -10,6 +10,10 @@ import remarkGfm from 'remark-gfm';
 export default defineConfig({
 	site: 'https://net-notes.pages.dev',
 	integrations: [mdx(), sitemap()],
+	redirects: {
+		'/cwna': '/certification/cwnp/cwna',
+		'/wlan': '/technology/network',
+	},
 	markdown: {
 		remarkPlugins: [remarkGfm],
 	},

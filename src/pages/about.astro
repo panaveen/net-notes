@@ -10,7 +10,7 @@ import { SITE_AUTHOR, SITE_TITLE } from '../consts';
 	<head>
 		<BaseHead
 			title={`About | ${SITE_TITLE}`}
-			description="About Net Field Notes — networking, WLAN, and security study notes."
+			description="About Net Field Notes — technology and certification study notes."
 		/>
 	</head>
 	<body>
@@ -19,15 +19,19 @@ import { SITE_AUTHOR, SITE_TITLE } from '../consts';
 			<header class="page-head">
 				<h1>About</h1>
 				<p>
-					{SITE_TITLE} is {SITE_AUTHOR}'s public notebook for enterprise networking — WLAN, routing,
-					security, and labs from real work.
+					{SITE_TITLE} is {SITE_AUTHOR}'s public notebook for enterprise networking — technology
+					write-ups and certification study paths.
 				</p>
 			</header>
 			<div class="prose">
 				<p>
-					WLAN is a first-class section here (including a CWNA → CWNE study path), but the site is
-					not limited to Wi‑Fi. Expect posts on networking, firewalls, campus/DC design, and short incident
-					write-ups when they teach something reusable.
+					Browse by <a href="/technology">Technology</a> (Network, Security, Automation) or by{' '}
+					<a href="/certification">Certification</a> (CWNP, Cisco, Juniper). WLAN / CWNA content
+					lives under Network and CWNP while the rest of the stack grows over time.
+				</p>
+				<p>
+					Built with Astro and hosted on Cloudflare Pages. Posts are Markdown in git — easy to
+					draft, review, and improve.
 				</p>
 			</div>
 		</main>

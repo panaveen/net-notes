@@ -1,0 +1,15 @@
+---
+import HubPage from '../../components/HubPage.astro';
+import { TECHNOLOGY } from '../../consts';
+---
+
+<HubPage
+	title="Technology"
+	description="Technology notes across network, security, and automation."
+	intro="Pick a lane — network engineering, security, or automation. Each section collects related posts as you publish them."
+	links={TECHNOLOGY.map((item) => ({
+		title: item.title,
+		blurb: item.blurb,
+		href: item.href,
+	}))}
+/>
