@@ -471,5 +471,3 @@ Reference also noted: [badfi.com](https://badfi.com)
 
 ---
 
-### Source
-Original PDF kept at `notes-raw/Wi-Fi Basics.pdf`. If a line still looks off versus your handwriting, tell me the page number and I’ll correct that section.
