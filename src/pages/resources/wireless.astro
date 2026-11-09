@@ -1,0 +1,59 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import ToolList from '../../components/ToolList.astro';
+import { REFERENCE_TOOLS, SITE_TITLE } from '../../consts';
+
+const tools = REFERENCE_TOOLS.filter((tool) => tool.section === 'wireless');
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`Wireless resources | ${SITE_TITLE}`}
+			description="Wireless WLAN references, blogs, and tools."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<header class="page-head">
+				<p class="crumb">
+					<a href="/resources">Resources</a> / Wireless
+				</p>
+				<h1>Wireless</h1>
+				<p>
+					Wi‑Fi blogs, spectrum charts, channel references, and WLAN toolboxes. Links open in a new
+					tab.
+				</p>
+			</header>
+			<ToolList tools={tools} />
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		width: 820px;
+	}
+	.page-head {
+		margin-bottom: 1.75rem;
+		animation: rise-in 0.6s ease both;
+	}
+	.crumb {
+		margin: 0 0 0.65rem;
+		font-size: 0.9rem;
+		color: var(--muted);
+	}
+	.crumb a {
+		text-decoration: none;
+	}
+	.page-head p:last-child {
+		margin: 0.75rem 0 0;
+		color: var(--muted);
+		max-width: 48ch;
+	}
+</style>

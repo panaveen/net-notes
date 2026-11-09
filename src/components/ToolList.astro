@@ -1,0 +1,81 @@
+---
+interface Tool {
+	title: string;
+	blurb: string;
+	href: string;
+	category: string;
+}
+
+interface Props {
+	tools: readonly Tool[];
+}
+
+const { tools } = Astro.props;
+---
+
+{
+	tools.length === 0 ? (
+		<p class="empty">No links in this section yet.</p>
+	) : (
+		<ul class="tool-list">
+			{tools.map((tool) => (
+				<li>
+					<a href={tool.href} target="_blank" rel="noopener noreferrer">
+						<span class="category">{tool.category}</span>
+						<span class="title">{tool.title}</span>
+						<span class="blurb">{tool.blurb}</span>
+						<span class="url">{tool.href.replace(/^https?:\/\//, '')}</span>
+					</a>
+				</li>
+			))}
+		</ul>
+	)
+}
+
+<style>
+	.tool-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0.35rem;
+	}
+	.tool-list a {
+		display: grid;
+		gap: 0.25rem;
+		padding: 1.15rem 0;
+		border-bottom: 1px solid var(--line);
+		text-decoration: none;
+		color: inherit;
+	}
+	.tool-list a:hover .title {
+		color: var(--accent);
+	}
+	.category {
+		font-family: var(--font-display);
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--accent);
+	}
+	.title {
+		font-family: var(--font-display);
+		font-size: 1.35rem;
+		font-weight: 700;
+		color: var(--ink);
+	}
+	.blurb {
+		color: var(--muted);
+		font-size: 0.98rem;
+		max-width: 52ch;
+	}
+	.url {
+		font-size: 0.85rem;
+		color: var(--muted);
+		word-break: break-all;
+	}
+	.empty {
+		color: var(--muted);
+	}
+</style>

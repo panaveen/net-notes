@@ -1,10 +1,11 @@
 ---
-import { CERTIFICATIONS, SITE_TITLE, TECHNOLOGY } from '../consts';
+import { CERTIFICATIONS, RESOURCE_SECTIONS, SITE_TITLE, TECHNOLOGY } from '../consts';
 
 const path = Astro.url.pathname;
 const techActive = path.startsWith('/technology');
 const certActive = path.startsWith('/certification');
 const postsActive = path.startsWith('/blog');
+const resourcesActive = path.startsWith('/resources');
 const aboutActive = path.startsWith('/about');
 const homeActive = path === '/' || path === '';
 ---
@@ -58,6 +59,15 @@ const homeActive = path === '/' || path === '';
 			</div>
 
 			<a class:list={[{ active: postsActive }]} href="/blog">Posts</a>
+
+			<div class:list={['menu', { active: resourcesActive }]}>
+				<a class="menu-trigger" href="/resources">Resources</a>
+				<div class="dropdown" role="menu">
+					<a href="/resources">Overview</a>
+					{RESOURCE_SECTIONS.map((item) => <a href={item.href}>{item.title}</a>)}
+				</div>
+			</div>
+
 			<a class:list={[{ active: aboutActive }]} href="/about">About</a>
 		</div>
 	</nav>

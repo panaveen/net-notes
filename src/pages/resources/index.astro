@@ -1,0 +1,15 @@
+---
+import HubPage from '../../components/HubPage.astro';
+import { RESOURCE_SECTIONS } from '../../consts';
+---
+
+<HubPage
+	title="References & Tools"
+	description="WLAN and networking references, blogs, and interactive tools."
+	intro="External blogs, charts, and utilities"
+	links={RESOURCE_SECTIONS.map((section) => ({
+		title: section.title,
+		blurb: section.blurb,
+		href: section.href,
+	}))}
+/>

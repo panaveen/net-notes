@@ -61,5 +61,58 @@ export const CERTIFICATIONS = [
 	},
 ] as const;
 
+export const RESOURCE_SECTIONS = [
+	{
+		slug: 'wireless',
+		title: 'Wireless',
+		blurb: 'WLAN blogs, spectrum charts, and Wi‑Fi design tools.',
+		href: '/resources/wireless',
+	},
+	{
+		slug: 'general-networking',
+		title: 'General networking',
+		blurb: 'Routing, switching, platforms, and day-to-day network utilities.',
+		href: '/resources/general-networking',
+	},
+] as const;
+
+export const REFERENCE_TOOLS = [
+	{
+		title: 'WiFrizzy',
+		blurb: 'Wireless adventures blog — Wi‑Fi engineering musings, troubleshooting, and design lessons.',
+		href: 'https://www.wifrizzy.com/',
+		category: 'Reading',
+		section: 'wireless',
+	},
+	{
+		title: 'WLAN Pros Toolbox',
+		blurb: 'Interactive WLAN tools collection from Wireless LAN Professionals.',
+		href: 'https://toolbox.wlanpros.com/app/',
+		category: 'Tools',
+		section: 'wireless',
+	},
+	{
+		title: 'PotatoFi Spectrum Chart',
+		blurb: 'Interactive RF spectrum chart for Wi‑Fi, Bluetooth, Zigbee, and more.',
+		href: 'https://spectrum.potatofi.com/',
+		category: 'Tools',
+		section: 'wireless',
+	},
+	{
+		title: 'Channel Charts',
+		blurb: 'Channel charts for 2.4, 5, and 6 GHz bands.',
+		href: 'https://nickjvturner.com/channel-charts',
+		category: 'Tools',
+		section: 'wireless',
+	},
+	{
+		title: 'Juniper Port Checker',
+		blurb: 'Look up Juniper platform port capabilities and configurations.',
+		href: 'https://apps.juniper.net/port-checker/',
+		category: 'Tools',
+		section: 'general-networking',
+	},
+] as const;
+
 /** @deprecated use TECHNOLOGY — kept for older imports during transition */
 export const TOPICS = TECHNOLOGY;
