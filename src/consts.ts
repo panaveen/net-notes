@@ -112,6 +112,13 @@ export const REFERENCE_TOOLS = [
 		category: 'Tools',
 		section: 'general-networking',
 	},
+	{
+		title: 'Wireless Talks',
+		blurb: 'Talks from WLPC and Wi-Fi Design Day.',
+		href: 'https://wlan-talks.net',
+		category: 'Reading',
+		section: 'wireless',
+	},
 ] as const;
 
 /** @deprecated use TECHNOLOGY — kept for older imports during transition */
