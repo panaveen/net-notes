@@ -1,0 +1,73 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`Page not found | ${SITE_TITLE}`}
+			description="The page you requested does not exist."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<header class="page-head">
+				<p class="code">404</p>
+				<h1>Page not found</h1>
+				<p>
+					That URL doesn’t exist on this site. It may be a typo — or an automated scanner probing
+					for files that aren’t here.
+				</p>
+				<p class="actions">
+					<a href="/">Go home</a>
+					<a href="/blog">Browse posts</a>
+					<a href="/resources">Resources</a>
+				</p>
+			</header>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		width: 720px;
+	}
+	.page-head {
+		padding: 2rem 0 3rem;
+		animation: rise-in 0.6s ease both;
+	}
+	.code {
+		margin: 0 0 0.5rem;
+		font-family: var(--font-display);
+		font-size: 3rem;
+		font-weight: 800;
+		letter-spacing: -0.04em;
+		color: var(--accent);
+		line-height: 1;
+	}
+	.page-head h1 {
+		margin: 0 0 0.75rem;
+	}
+	.page-head p {
+		margin: 0;
+		color: var(--muted);
+		max-width: 42ch;
+	}
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin-top: 1.5rem !important;
+	}
+	.actions a {
+		font-family: var(--font-display);
+		font-weight: 700;
+		text-decoration: none;
+	}
+</style>
